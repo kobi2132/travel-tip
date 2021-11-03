@@ -1,7 +1,8 @@
 // import { storageService } from "./storage.service"
 export const locService = {
     getLocs,
-    addNewLoc
+    addNewLoc,
+    deleteLoc,
 }
 
 
@@ -18,7 +19,7 @@ function getLocs() {
     });
 }
 
-function addNewLoc(posName, pos){
+function addNewLoc(posName, pos) {
     locs.push({
         id: makeId(),
         name: posName,
@@ -28,6 +29,12 @@ function addNewLoc(posName, pos){
         createdAt: Date.now(),
         updatedAt: Date.now()
     })
+}
+
+function deleteLoc(id) {
+    let itemIdx = findIdx(id);
+    locs.splice(itemIdx, 1);
+    console.log(locs)
 }
 
 
@@ -44,4 +51,8 @@ function makeId(length = 4) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return txt
+}
+
+function findIdx(id) {
+    return locs.findIndex((loc => id === loc.id));
 }

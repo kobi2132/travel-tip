@@ -1,5 +1,9 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+export const appController = {
+    renderLocations,
+    onGetLocs,    
+}
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -72,7 +76,7 @@ function onGetSelectedPosition() {
 }
 
 function renderLocations(locs) {
-    console.log('hello renderLocations', locs)
+    // console.log('hello renderLocations', locs)
     var strHtmls = `
                 <tr>
                     <th colspan="9">My locations</th>
@@ -97,21 +101,23 @@ function renderLocations(locs) {
             <td>${loc.weather}</td>
             <td>${loc.createdAt}</td>
             <td>${loc.updatedAt}</td>
-            <td><button class="table-btn" onclick="onDisplayLoc()">Go</button></td>
-            <td><button class="table-btn" onclick="onDeleteLoc()">Delete</button></td>
+            <td><button class="table-btn" onclick="onDisplayLoc(${loc.id})">Go</button></td>
+            <td><button class="table-btn" onclick="onDeleteLoc('${loc.id}')">Delete</button></td>
         </tr>
         `
     })
-    console.log(strHtmls)
+    // console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls
 }
 
 function onDisplayLoc() {
-    console.log('hello onDisplayLoc')
+    
 }
 
-function onDeleteLoc() {
-    console.log('hello onDeleteLoc')
+function onDeleteLoc(id) {
+    // console.log('hello onDeleteLoc')
+    locService.deleteLoc(id)
+    onGetLocs()
 }
 
 function onSearchLoc() {

@@ -39,6 +39,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             gMap.addListener("click", (mapsMouseEvent) => {
                 let spotName = prompt('What is the name of the location you want to save?');
                 let clickedPos = mapsMouseEvent.latLng.toJSON();
+                console.log(clickedPos);
                 locService.addNewLoc(spotName, clickedPos)
                 appController.onGetLocs()
                 addMarker(clickedPos, spotName)

@@ -9,9 +9,10 @@ window.onGetUserPos = onGetUserPos;
 window.onGetSelectedPosition = onGetSelectedPosition;
 
 function onInit() {
+    console.log('hello onInit')
     mapService.initMap()
         .then(() => {
-            console.log('Map is ready');
+            console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'));
         
@@ -35,6 +36,7 @@ function onGetLocs() {
         .then(locs => {
             console.log('Locations:', locs)
             document.querySelector('.locs').innerText = JSON.stringify(locs)
+            renderLocations(locs)
         })
 }
 
@@ -64,3 +66,36 @@ function onGetSelectedPosition(){
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })}
+
+function renderLocations(locs) {
+    console.log('hello renderLocations', locs)
+    var strHtmls = `
+                <tr>
+                    <th colspan="7">My locations</th>
+                </tr>
+                <tr>
+                    <td>id</td>
+                    <td>name</td>
+                    <td>lat</td>
+                    <td>lng</td>
+                    <td>weather</td>
+                    <td>createdAt</td>
+                    <td>updatedAt</td>
+                </tr>
+                `
+    strHtmls += locs.map(function(loc) {
+        return `
+        <tr>
+            <td>${loc.id}</td>
+            <td>${loc.name}</td>
+            <td>${loc.lat}</td>
+            <td>${loc.lng}</td>
+            <td>${loc.weather}</td>
+            <td>${loc.createdAt}</td>
+            <td>${loc.updatedAt}</td>
+        </tr>
+        `
+    })
+    console.log(strHtmls)
+    document.querySelector('.locations-table').innerHTML = strHtmls
+}

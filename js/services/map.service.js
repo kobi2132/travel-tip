@@ -16,9 +16,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             console.log('Map!', gMap);
 
             gMap.addListener("click", (mapsMouseEvent) => {
@@ -27,7 +27,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 console.log(clickedPos);
                 locService.addNewLoc(spotName, clickedPos)
                 appController.onGetLocs()
-                addMarker(clickedPos ,spotName)
+                addMarker(clickedPos, spotName)
             });
 
         })
@@ -46,26 +46,26 @@ function panTo(id) {
     let currLoc = locService.getCurrLoc(id)
     let lat = currLoc.lat
     let lng = currLoc.lng
-    var laLatLng = new google.maps.LatLng(lat, lng);
-    gMap.panTo(laLatLng);
-    addMarker({lat:lat,lng:lng}, currLoc.name)
+    var laLatLng = new google.maps.LatLng(lat, lng)
+    gMap.panTo(laLatLng)
+    addMarker({ lat: lat, lng: lng }, currLoc.name)
 }
 
-function panToPos(pos){
+function panToPos(pos) {
     let lat = pos.latitude
     let lng = pos.longitude
-    var laLatLng = new google.maps.LatLng(lat, lng);
-    gMap.panTo(laLatLng);
-    addMarker({lat:lat,lng:lng})
+    var laLatLng = new google.maps.LatLng(lat, lng)
+    gMap.panTo(laLatLng)
+    addMarker({ lat: lat, lng: lng })
 }
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyCkrsNzE8h557veZZf_VrFSaiPxB5XjHzU';
-    var elGoogleApi = document.createElement('script');
+    const API_KEY = 'AIzaSyCkrsNzE8h557veZZf_VrFSaiPxB5XjHzU'
+    var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&region=IL&language=iw`;
-    elGoogleApi.async = true;
-    document.body.append(elGoogleApi);
+    elGoogleApi.async = true
+    document.body.append(elGoogleApi)
 
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve;

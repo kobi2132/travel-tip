@@ -2,8 +2,9 @@ import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 export const appController = {
     renderLocations,
-    onGetLocs,    
+    onGetLocs,
 }
+
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -92,7 +93,7 @@ function renderLocations(locs) {
                 </tr>
                 `
     strHtmls += locs.map(function(loc) {
-        return `
+            return `
         <tr>
             <td>${loc.id}</td>
             <td>${loc.name}</td>
@@ -105,13 +106,13 @@ function renderLocations(locs) {
             <td><button class="table-btn" onclick="onDeleteLoc('${loc.id}')">Delete</button></td>
         </tr>
         `
-    })
-    // console.log(strHtmls)
+        })
+        // console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls
 }
 
 function onDisplayLoc() {
-    
+
 }
 
 function onDeleteLoc(id) {
@@ -121,7 +122,11 @@ function onDeleteLoc(id) {
 }
 
 function onSearchLoc() {
-    console.log('hello onSearchLoc')
+    // console.log('hello onSearchLoc')
     var locName = document.querySelector('.search-input').value
     console.log(locName)
+    const prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locName}&key=AIzaSyBgnV1YrbPAs1sTJ3vz_63TQskGN_uxsYk`)
+        .then(res => {
+            console.log('Axios Res:', res.data.results[0].geometry.location);
+        })
 }

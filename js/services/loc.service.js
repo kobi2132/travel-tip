@@ -43,7 +43,6 @@ function addNewLoc(posName, pos) {
 
     console.log('saved to storage')
     storageService.save(KEY, locs)
-
 }
 
 function deleteLoc(id) {

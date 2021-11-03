@@ -1,5 +1,3 @@
-
-
 export const mapService = {
     initMap,
     addMarker,
@@ -7,6 +5,7 @@ export const mapService = {
 }
 
 var gMap;
+var gMarkers = [];
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
@@ -19,6 +18,12 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap);
+
+            gMap.addListener("click", (mapsMouseEvent) => {
+                let spotName = prompt('What is the name of the location you want to save?');
+                let clickedPos = mapsMouseEvent.latLng.toJSON();
+                console.log(clickedPos);
+            });
         })
 }
 
@@ -42,7 +47,7 @@ function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyCkrsNzE8h557veZZf_VrFSaiPxB5XjHzU';
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&region=IL&language=iw`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 

@@ -1,7 +1,8 @@
 import { storageService } from "./storage.service.js"
 export const locService = {
     getLocs,
-    addNewLoc
+    addNewLoc,
+    deleteLoc,
 }
 
 const KEY = 'locsDB'
@@ -45,6 +46,12 @@ function addNewLoc(posName, pos) {
 
 }
 
+function deleteLoc(id) {
+    let itemIdx = findIdx(id);
+    locs.splice(itemIdx, 1);
+    console.log(locs)
+}
+
 
 
 
@@ -59,4 +66,8 @@ function makeId(length = 4) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return txt
+}
+
+function findIdx(id) {
+    return locs.findIndex((loc => id === loc.id));
 }

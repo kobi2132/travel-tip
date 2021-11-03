@@ -1,4 +1,5 @@
 import { locService } from './loc.service.js'
+import { appController } from '../app.controller.js'
 export const mapService = {
     initMap,
     addMarker,
@@ -15,16 +16,19 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                    center: { lat, lng },
-                    zoom: 15
-                })
+                center: { lat, lng },
+                zoom: 15
+            })
             console.log('Map!', gMap);
 
             gMap.addListener("click", (mapsMouseEvent) => {
                 let spotName = prompt('What is the name of the location you want to save?');
                 let clickedPos = mapsMouseEvent.latLng.toJSON();
                 locService.addNewLoc(spotName, clickedPos)
+                appController.onGetLocs()
+                addMarker(clickedPos)
             });
+
         })
 }
 

@@ -1,12 +1,15 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-window.onload = onInit;
-window.onAddMarker = onAddMarker;
-window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
-window.onGetUserPos = onGetUserPos;
-window.onGetSelectedPosition = onGetSelectedPosition;
+window.onload = onInit
+window.onAddMarker = onAddMarker
+window.onPanTo = onPanTo
+window.onGetLocs = onGetLocs
+window.onGetUserPos = onGetUserPos
+window.onGetSelectedPosition = onGetSelectedPosition
+window.onDisplayLoc = onDisplayLoc
+window.onDeleteLoc = onDeleteLoc
+window.onSearchLoc = onSearchLoc
 
 function onInit() {
     console.log('hello onInit')
@@ -15,7 +18,7 @@ function onInit() {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'));
-        
+
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -57,7 +60,7 @@ function onPanTo() {
     mapService.panTo(35.6895, 139.6917);
 }
 
-function onGetSelectedPosition(){
+function onGetSelectedPosition() {
     if (!navigator.geolocation) {
         alert("HTML5 Geolocation is not supported in your browser.");
         return;
@@ -65,13 +68,14 @@ function onGetSelectedPosition(){
     console.log('Getting  Selected Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
-    })}
+    })
+}
 
 function renderLocations(locs) {
     console.log('hello renderLocations', locs)
     var strHtmls = `
                 <tr>
-                    <th colspan="7">My locations</th>
+                    <th colspan="9">My locations</th>
                 </tr>
                 <tr>
                     <td>id</td>
@@ -93,9 +97,25 @@ function renderLocations(locs) {
             <td>${loc.weather}</td>
             <td>${loc.createdAt}</td>
             <td>${loc.updatedAt}</td>
+            <td><button class="table-btn" onclick="onDisplayLoc()">Go</button></td>
+            <td><button class="table-btn" onclick="onDeleteLoc()">Delete</button></td>
         </tr>
         `
     })
     console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls
+}
+
+function onDisplayLoc() {
+    console.log('hello onDisplayLoc')
+}
+
+function onDeleteLoc() {
+    console.log('hello onDeleteLoc')
+}
+
+function onSearchLoc() {
+    console.log('hello onSearchLoc')
+    var locName = document.querySelector('.search-input').value
+    console.log(locName)
 }

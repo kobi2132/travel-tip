@@ -3,13 +3,14 @@ export const locService = {
     getLocs,
     addNewLoc,
     deleteLoc,
+    getCurrLoc,
 }
 
 const KEY = 'locsDB'
 
 const locs = [
-    { id: 1242, name: 'Greatplace', lat: 32.047104, lng: 34.832384, weather: 'nice', createdAt: 21345, updatedAt: 999 },
-    { id: 3352, name: 'Neveragain', lat: 32.047201, lng: 34.832581, weather: 'nice', createdAt: 21345, updatedAt: 999 }
+    { id: 1242, name: 'Nitzaney Oz', lat: 32.30933592392525, lng: 35.00758079808111, weather: 'nice', createdAt: 21345, updatedAt: 999 },
+    { id: 3352, name: 'Herev Le`et', lat: 32.40161831012314, lng: 34.915886018615716, weather: 'nice', createdAt: 21345, updatedAt: 999 }
 ]
 
 function getLocs() {
@@ -28,6 +29,11 @@ function getLocs() {
             storageService.save(KEY, locs)
             return locs
         })
+}
+
+function getCurrLoc(id){
+    let itemIdx = findIdx(id);
+    return locs[itemIdx]
 }
 
 function addNewLoc(posName, pos) {

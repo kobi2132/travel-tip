@@ -4,10 +4,10 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
+    panToPos,
 }
 
 var gMap;
-var gMarkers = [];
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
@@ -41,11 +41,22 @@ function addMarker(loc) {
     return marker;
 }
 
-function panTo(lat, lng) {
+function panTo(id) {
+    let currLoc = locService.getCurrLoc(id)
+    let lat = currLoc.lat
+    let lng = currLoc.lng
     var laLatLng = new google.maps.LatLng(lat, lng);
     gMap.panTo(laLatLng);
+    addMarker({lat:lat,lng:lng})
 }
 
+function panToPos(pos){
+    let lat = pos.latitude
+    let lng = pos.longitude
+    var laLatLng = new google.maps.LatLng(lat, lng);
+    gMap.panTo(laLatLng);
+    addMarker({lat:lat,lng:lng})
+}
 
 
 function _connectGoogleApi() {

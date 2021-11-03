@@ -12,7 +12,6 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onGetSelectedPosition = onGetSelectedPosition
-window.onDisplayLoc = onDisplayLoc
 window.onDeleteLoc = onDeleteLoc
 window.onSearchLoc = onSearchLoc
 
@@ -51,18 +50,18 @@ function onGetLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords);
+            mapService.panToPos(pos.coords)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
         .catch(err => {
             console.log('err!!!', err);
         })
+
 }
 
-function onPanTo() {
-    console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+function onPanTo(id) {
+    mapService.panTo(id);
 }
 
 function onGetSelectedPosition() {
@@ -102,17 +101,13 @@ function renderLocations(locs) {
             <td>${loc.weather}</td>
             <td>${loc.createdAt}</td>
             <td>${loc.updatedAt}</td>
-            <td><button class="table-btn" onclick="onDisplayLoc(${loc.id})">Go</button></td>
+            <td><button class="table-btn" onclick="onPanTo(${loc.id})">Go</button></td>
             <td><button class="table-btn" onclick="onDeleteLoc('${loc.id}')">Delete</button></td>
         </tr>
         `
         })
         // console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls
-}
-
-function onDisplayLoc() {
-
 }
 
 function onDeleteLoc(id) {

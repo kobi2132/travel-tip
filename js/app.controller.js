@@ -14,6 +14,7 @@ window.onGetUserPos = onGetUserPos
 window.onGetSelectedPosition = onGetSelectedPosition
 window.onDeleteLoc = onDeleteLoc
 window.onSearchLoc = onSearchLoc
+window.onLink = onLink
 
 function onInit() {
     console.log('hello onInit')
@@ -122,6 +123,21 @@ function onSearchLoc() {
     console.log(locName)
     const prm = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locName}&key=AIzaSyBgnV1YrbPAs1sTJ3vz_63TQskGN_uxsYk`)
         .then(res => {
-            console.log('Axios Res:', res.data.results[0].geometry.location);
+            console.log('Axios Res:', res);
+            var searchObj = {
+                latitude: res.data.results[0].geometry.location.lat,
+                longitude: res.data.results[0].geometry.location.lng
+            }
+            console.log(searchObj)
+            mapService.panToPos(searchObj)
+            locService.addNewLoc(res.data.results[0].formatted_address, res.data.results[0].geometry.location)
         })
+}
+
+function onLink() {
+    console.log('hello onLink')
+        // const urlSearchParams = new URLSearchParams(window.location.search);
+        // const params = Object.fromEntries(urlSearchParams.entries());
+        // console.log(params)
+    var strUrl = 'https://kobi2132.github.io/travel-tip/index.html'
 }

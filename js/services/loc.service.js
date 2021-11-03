@@ -1,6 +1,7 @@
-import { storageService } from "./storage.service"
+// import { storageService } from './services/storage.service.js'
 export const locService = {
     getLocs,
+    addNewLoc
 }
 
 
@@ -15,4 +16,17 @@ function getLocs() {
             resolve(locs);
         }, 2000)
     });
+}
+
+function addNewLoc(posName, pos){
+    locs.push({
+        id: 1234,
+        name: posName,
+        lat: pos.lat,
+        lng: pos.lng,
+        weather: 'nice',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+    })
+    console.log(locs);
 }

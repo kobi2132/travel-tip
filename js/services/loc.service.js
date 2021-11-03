@@ -1,4 +1,4 @@
-// import { storageService } from './services/storage.service.js'
+// import { storageService } from "./storage.service"
 export const locService = {
     getLocs,
     addNewLoc
@@ -20,7 +20,7 @@ function getLocs() {
 
 function addNewLoc(posName, pos){
     locs.push({
-        id: 1234,
+        id: makeId(),
         name: posName,
         lat: pos.lat,
         lng: pos.lng,
@@ -28,5 +28,20 @@ function addNewLoc(posName, pos){
         createdAt: Date.now(),
         updatedAt: Date.now()
     })
-    console.log(locs);
+}
+
+
+
+
+
+//----------IN_UTILES----------------
+
+function makeId(length = 4) {
+    console.log('hello makeId')
+    var txt = ''
+    var possible = 'QWETRYUIOPASDFHJKLZXCVBNM1234567890qwerytuiopasdfghjklzxcvbnm'
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return txt
 }

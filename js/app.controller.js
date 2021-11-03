@@ -60,7 +60,6 @@ function onGetUserPos() {
 }
 
 function onPanTo(id) {
-    // console.log('Panning the Map');
     mapService.panTo(id);
 }
 
@@ -109,7 +108,6 @@ function renderLocations(locs) {
     // console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls
 }
-
 
 function onDeleteLoc(id) {
     // console.log('hello onDeleteLoc')

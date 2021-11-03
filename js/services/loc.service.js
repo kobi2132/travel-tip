@@ -55,6 +55,7 @@ function addNewLoc(posName, pos) {
 function deleteLoc(id) {
     let itemIdx = findIdx(id);
     locs.splice(itemIdx, 1);
+    storageService.save(KEY, locs)
     console.log(locs)
 }
 

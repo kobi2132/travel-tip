@@ -26,17 +26,17 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 let clickedPos = mapsMouseEvent.latLng.toJSON();
                 locService.addNewLoc(spotName, clickedPos)
                 appController.onGetLocs()
-                addMarker(clickedPos)
+                addMarker(clickedPos ,spotName)
             });
 
         })
 }
 
-function addMarker(loc) {
+function addMarker(loc, spotName) {
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
-        title: 'Hello World!'
+        title: spotName
     });
     return marker;
 }
@@ -47,7 +47,7 @@ function panTo(id) {
     let lng = currLoc.lng
     var laLatLng = new google.maps.LatLng(lat, lng);
     gMap.panTo(laLatLng);
-    addMarker({lat:lat,lng:lng})
+    addMarker({lat:lat,lng:lng}, currLoc.name)
 }
 
 function panToPos(pos){
@@ -57,7 +57,6 @@ function panToPos(pos){
     gMap.panTo(laLatLng);
     addMarker({lat:lat,lng:lng})
 }
-
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()

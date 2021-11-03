@@ -136,8 +136,13 @@ function onSearchLoc() {
 
 function onLink() {
     console.log('hello onLink')
-        // const urlSearchParams = new URLSearchParams(window.location.search);
-        // const params = Object.fromEntries(urlSearchParams.entries());
-        // console.log(params)
-    var strUrl = 'https://kobi2132.github.io/travel-tip/index.html'
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    // console.log(params)
+    var center = mapService.getMapCenter()
+        // console.log(center)
+    var strUrl = `https://kobi2132.github.io/travel-tip/index.html?lat=${center.lat}&lng=${center.lng}`
+    console.log(strUrl)
+    navigator.clipboard.writeText(strUrl)
+
 }

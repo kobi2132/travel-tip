@@ -5,11 +5,22 @@ export const mapService = {
     addMarker,
     panTo,
     panToPos,
+    getMapCenter
 }
 
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    console.log(params)
+        // if (params === {}) {
+        //     var lat = 32.0749831
+        //     var lng = 34.9120554
+        // } else {
+        //     var lat = params.lat
+        //     var lng = params.lng
+        // }
     console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
@@ -20,6 +31,10 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     zoom: 15
                 })
             console.log('Map!', gMap);
+            // console.log('center', gMap.getCenter().lat(), gMap.getCenter().lng());
+
+            // mylat = map.getCenter().lat();      var mylng = map.getCenter().lng();
+
 
             gMap.addListener("click", (mapsMouseEvent) => {
                 let spotName = prompt('What is the name of the location you want to save?');
@@ -70,4 +85,14 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function getMapCenter() {
+    console.log('hello getMapCenter')
+    var center = {
+        lat: gMap.getCenter().lat(),
+        lng: gMap.getCenter().lng()
+    }
+    console.log(center)
+    return center
 }

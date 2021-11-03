@@ -1,9 +1,10 @@
-// import { storageService } from "./storage.service"
+import { storageService } from "./storage.service.js"
 export const locService = {
     getLocs,
     addNewLoc
 }
 
+const KEY = 'locsDB'
 
 const locs = [
     { id: 1242, name: 'Greatplace', lat: 32.047104, lng: 34.832384, weather: 'nice', createdAt: 21345, updatedAt: 999 },
@@ -11,14 +12,24 @@ const locs = [
 ]
 
 function getLocs() {
+    const locs = storageService.load(KEY) || [];
+    if (locs) return Promise.resolve(locs);
+
+    console.log('Getting from Network');
+
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(locs);
-        }, 2000)
-    });
+            setTimeout(() => {
+                resolve(locs)
+            }, 2000)
+        })
+        .then(locs => {
+            console.log('saved to storage')
+            storageService.save(KEY, locs)
+            return locs
+        })
 }
 
-function addNewLoc(posName, pos){
+function addNewLoc(posName, pos) {
     locs.push({
         id: makeId(),
         name: posName,
@@ -28,6 +39,10 @@ function addNewLoc(posName, pos){
         createdAt: Date.now(),
         updatedAt: Date.now()
     })
+
+    console.log('saved to storage')
+    storageService.save(KEY, locs)
+
 }
 
 
